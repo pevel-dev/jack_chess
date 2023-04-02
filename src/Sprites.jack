@@ -1,7 +1,7 @@
-class SpriteSheet {
+class Sprites {
   field Array sprites;
 
-  constructor SpriteSheet new() {
+  constructor Sprites new() {
     var int i;
     // Initialise all sprites
     var Array WWW, BbB;
