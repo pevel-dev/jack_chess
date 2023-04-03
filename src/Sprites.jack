@@ -9,7 +9,7 @@ class Sprites {
     var Array BPW, BPB, BNW, BNB, BBW, BBB, BRW, BRB, BQW, BQB, BKW, BKB;
     var Array cursor, cursor_black;
     var int i;
-    let sprites = Array.new(64);
+    let sprites = Array.new(32);
     let i = 0;
 
     let WWW = Array.new(64);

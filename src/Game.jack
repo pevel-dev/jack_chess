@@ -1,0 +1,20 @@
+class Game{
+    field Board board;
+    constructor Game new(){
+        let board = Board.new();
+        return this;
+    }
+
+
+    method void DrawAll(){
+        var int i;
+        let i = 0;
+
+        while (i < 64){
+            do board.DrawFigure(i);
+            let i = i + 1;
+        }   
+        return;
+    }
+
+}

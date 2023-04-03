@@ -1,7 +1,11 @@
 class Main {
+  
   function void main() {
+    var Game game;
+    let game = Game.new();
+    do game.DrawAll();
 
-    do Screen.setColor(true);
+
     return;
   }
 }

@@ -1,0 +1,92 @@
+class Board{
+    field Array grid; // Хранятся id спрайтов
+    field Sprites sprites;
+
+    constructor Board new(){
+        let grid = Array.new(64);
+        let sprites = Sprites.new();
+
+        let grid[0] = 24;
+        let grid[1] = 21;
+        let grid[2] = 22;
+        let grid[3] = 27;
+        let grid[4] = 28;
+        let grid[5] = 23;
+        let grid[6] = 20;
+        let grid[7] = 25;
+
+        let grid[8] = 19;
+        let grid[9] = 18;
+        let grid[10] = 19;
+        let grid[11] = 18;
+        let grid[12] = 19;
+        let grid[13] = 18;
+        let grid[14] = 19;
+        let grid[15] = 18;
+
+        let grid[16] = 0;
+        let grid[17] = 1;
+        let grid[18] = 0;
+        let grid[19] = 1;
+        let grid[20] = 0;
+        let grid[21] = 1;
+        let grid[22] = 0;
+        let grid[23] = 1;
+
+        let grid[24] = 1;
+        let grid[25] = 0;
+        let grid[26] = 1;
+        let grid[27] = 0;
+        let grid[28] = 1;
+        let grid[29] = 0;
+        let grid[30] = 1;
+        let grid[31] = 0;
+
+        let grid[32] = 0;
+        let grid[33] = 1;
+        let grid[34] = 0;
+        let grid[35] = 1;
+        let grid[36] = 0;
+        let grid[37] = 1;
+        let grid[38] = 0;
+        let grid[39] = 1;
+
+        let grid[40] = 1;
+        let grid[41] = 0;
+        let grid[42] = 1;
+        let grid[43] = 0;
+        let grid[44] = 1;
+        let grid[45] = 0;
+        let grid[46] = 1;
+        let grid[47] = 0;
+
+        let grid[48] = 2;
+        let grid[49] = 3;
+        let grid[50] = 2;
+        let grid[51] = 3;
+        let grid[52] = 2;
+        let grid[53] = 3;
+        let grid[54] = 2;
+        let grid[55] = 3;
+
+
+        let grid[56] = 9;
+        let grid[57] = 4;
+        let grid[58] = 7;
+        let grid[59] = 10;
+        let grid[60] = 13;
+        let grid[61] = 6;
+        let grid[62] = 5;
+        let grid[63] = 8;
+
+        return this;
+    }
+
+    method void DrawFigure(int id){
+        var Array sprite;
+        let sprite = sprites.get_sprite(grid[id]);
+        do Draw.DrawSprite(sprite, Help.mod(id, 8) * 32, (id / 8) * 32);
+        return;
+    }
+    
+}

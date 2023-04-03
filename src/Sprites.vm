@@ -2,7 +2,7 @@ function Sprites.new 30
 push constant 1
 call Memory.alloc 1
 pop pointer 0
-push constant 64
+push constant 32
 call Array.new 1
 pop this 0
 push constant 0
