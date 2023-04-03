@@ -6,11 +6,11 @@ class Move {
     
     constructor Move new(Array moveDescription) {
         let startX = moveDescription[0] - 65;
-      
-        let startY = moveDescription[1] - 48;
+        let startY = (8 - (moveDescription[1] - 48));
         let endX = moveDescription[2] - 65;
-        let endX = moveDescription[3] - 48;
+        let endY = (8 - (moveDescription[3] - 48)) ;
         do Memory.deAlloc(moveDescription);
+
         return this;
       }
 
@@ -19,11 +19,26 @@ class Move {
         var bool startPosValid;
         var bool endPosValid;
 
-        let startPosValid = (startX < 9) & (startY < 9);
-        let endPosValid = (endX < 9) & (endY < 9);
+        let startPosValid = (startX < 9) & (startY < 9) & (startX > 0) & (startY > 0);
+        let endPosValid = (endX < 9) & (endY < 9) & (endX > 0) & (endY > 0);
 
         return startPosValid & endPosValid;
       }
 
+    method int getStartIndex() {
+        return startY * 8 + startX;
+    }
+
+    method int getEndIndex() {
+        return endY * 8 + endX;
+    }
+
+    method int getStartColor() {
+        return Help.abs((Help.mod(startX, 2) = Help.mod(startY, 2)) + 1);
+    }
+
+    method int getEndColor() {
+        return Help.abs((Help.mod(endX, 2) = Help.mod(endY, 2)) + 1);
+    }
 }
 

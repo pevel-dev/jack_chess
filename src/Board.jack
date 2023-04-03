@@ -88,5 +88,28 @@ class Board{
         do Draw.DrawSprite(sprite, Help.mod(id, 8) * 32, (id / 8) * 32);
         return;
     }
+
+    method void makeMove(Move move) { // UNSAFE
+        var int pieceId;
+        var int startIndex;
+        var int endIndex;
+
+        if (~move.checkLegal()) {
+            do Memory.deAlloc(move);
+            return;
+        }
+
+        let startIndex = move.getStartIndex();
+        let endIndex = move.getEndIndex();
+
+        let pieceId = grid[startIndex] - move.getStartColor();
+        let grid[endIndex] = pieceId + move.getEndColor();
+        let grid[startIndex] = move.getStartColor();
+        do Output.moveCursor(20, 40);
+        do Output.printInt(move.getStartColor());
+
+        do Memory.deAlloc(move);
+        return;
+    }
     
 }

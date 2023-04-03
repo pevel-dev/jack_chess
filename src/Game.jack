@@ -19,8 +19,12 @@ class Game{
 
     method void GameLoop(){
         var Array input;
-        while(-1){
+        var Move move;
+        while(true){
             let input = Help.GetInputChars(4);
+            let move = Move.new(input); // input OWNERSHIP PASSED
+            do board.makeMove(move); // move OWNERSHIP PASSED
+
             do DrawAll();
         }
         return;

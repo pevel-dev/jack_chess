@@ -4,6 +4,7 @@ class Main {
 
     var Game game;
     let game = Game.new();
+    do game.DrawAll();
     do game.GameLoop();
 
 
