@@ -5,11 +5,13 @@ class Move {
     field int endY;
     
     constructor Move new(Array moveDescription) {
-        let startX = moveDescription[0] - "A";
-        let startY = moveDescription[1] - "0";
-        let endX = moveDescription[2] - "A";
-        let endX = moveDescription[3] - "0";
-        Memory.deAlloc(moveDescription);
+        let startX = moveDescription[0] - 65;
+      
+        let startY = moveDescription[1] - 48;
+        let endX = moveDescription[2] - 65;
+        let endX = moveDescription[3] - 48;
+        do Memory.deAlloc(moveDescription);
+        return this;
       }
 
 
