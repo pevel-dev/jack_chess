@@ -11,4 +11,18 @@ class Help {
     }
     return number;
   }
+
+  function Array GetInputChars(int n){
+    var Array input;
+    var int i;
+    let input = Array.new(n);
+    let i = 0;
+
+    while(i < n){
+      let input[i] = Keyboard.readChar();
+      let i = i + 1;
+    }
+
+    return input;
+  }
 }

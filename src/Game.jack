@@ -17,4 +17,13 @@ class Game{
         return;
     }
 
+    method void GameLoop(){
+        var Array input;
+        while(-1){
+            let input = Help.GetInputChars(4);
+            do DrawAll();
+        }
+        return;
+    }
+
 }
