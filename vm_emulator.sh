@@ -1,0 +1,1 @@
+/home/kozlov/repos/jack_chess/.tetris2nand/nand2tetris/tools/VMEmulator.sh

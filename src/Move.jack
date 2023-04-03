@@ -1,0 +1,27 @@
+class Move {
+    field int startX;
+    field int startY;
+    field int endX;
+    field int endY;
+    
+    constructor Move new(Array moveDescription) {
+        let startX = moveDescription[0] - "A";
+        let startY = moveDescription[1] - "0";
+        let endX = moveDescription[2] - "A";
+        let endX = moveDescription[3] - "0";
+        Memory.deAlloc(moveDescription);
+      }
+
+
+    method bool checkLegal() {
+        var bool startPosValid;
+        var bool endPosValid;
+
+        let startPosValid = (startX < 9) & (startY < 9);
+        let endPosValid = (endX < 9) & (endY < 9);
+
+        return startPosValid & endPosValid;
+      }
+
+}
+
