@@ -1,0 +1,285 @@
+function Move.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push constant 0
+push argument 1
+add
+pop pointer 1
+push that 0
+push constant 65
+sub
+pop this 1
+push constant 8
+push constant 1
+push argument 1
+add
+pop pointer 1
+push that 0
+push constant 48
+sub
+sub
+pop this 2
+push constant 2
+push argument 1
+add
+pop pointer 1
+push that 0
+push constant 65
+sub
+pop this 3
+push constant 8
+push constant 3
+push argument 1
+add
+pop pointer 1
+push that 0
+push constant 48
+sub
+sub
+pop this 4
+push argument 1
+call Memory.deAlloc 1
+pop temp 0
+push pointer 0
+return
+function Move.checkLegal 8
+push argument 0
+pop pointer 0
+push this 1
+push constant 8
+lt
+push this 2
+push constant 8
+lt
+and
+push this 1
+push constant 1
+neg
+gt
+and
+push this 2
+push constant 1
+neg
+gt
+and
+pop local 0
+push this 3
+push constant 8
+lt
+push this 4
+push constant 8
+lt
+and
+push this 3
+push constant 1
+neg
+gt
+and
+push this 4
+push constant 1
+neg
+gt
+and
+pop local 1
+push local 0
+push local 1
+and
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+return
+label IF_FALSE0
+push this 0
+push pointer 0
+call Move.getStartIndex 1
+call Board.getPieceId 2
+pop local 2
+push local 2
+push constant 16
+call Math.divide 2
+pop local 3
+push local 2
+push constant 16
+call Help.mod 2
+pop local 4
+push this 0
+push pointer 0
+call Move.getEndIndex 1
+call Board.getPieceId 2
+pop local 5
+push local 5
+push constant 16
+call Math.divide 2
+push local 3
+eq
+call Output.printInt 1
+pop temp 0
+push this 0
+push local 5
+call Board.idFree 2
+not
+call Output.printInt 1
+pop temp 0
+push this 0
+push pointer 0
+call Move.getStartIndex 1
+call Board.idFree 2
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+label IF_FALSE1
+push local 5
+push constant 16
+call Math.divide 2
+push local 3
+eq
+push this 0
+push pointer 0
+call Move.getEndIndex 1
+call Board.idFree 2
+not
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 0
+return
+label IF_FALSE2
+push local 4
+push constant 4
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 1
+push this 3
+sub
+call Help.abs 1
+pop local 6
+push this 2
+push this 4
+sub
+call Help.abs 1
+pop local 7
+push local 6
+push constant 2
+eq
+push local 7
+push constant 1
+eq
+and
+push local 6
+push constant 1
+eq
+push local 7
+push constant 2
+eq
+and
+or
+return
+label IF_FALSE3
+push local 4
+push constant 6
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 1
+push this 3
+sub
+call Help.abs 1
+pop local 6
+push this 2
+push this 4
+sub
+call Help.abs 1
+pop local 7
+push local 6
+push local 7
+eq
+not
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+return
+label IF_FALSE5
+label IF_FALSE4
+push local 4
+push constant 12
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 1
+push this 3
+sub
+call Help.abs 1
+pop local 6
+push this 2
+push this 4
+sub
+call Help.abs 1
+pop local 7
+push local 6
+push constant 2
+lt
+push local 7
+push constant 2
+lt
+and
+return
+label IF_FALSE6
+push local 5
+push constant 12
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+call Win.whitePower 0
+pop temp 0
+label IF_FALSE7
+push local 5
+push constant 28
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+call Win.blackLivesMatter 0
+pop temp 0
+label IF_FALSE8
+push constant 0
+not
+return
+function Move.getStartIndex 0
+push argument 0
+pop pointer 0
+push pointer 0
+push this 1
+push this 2
+call Move.getIndex 3
+return
+function Move.getEndIndex 0
+push argument 0
+pop pointer 0
+push pointer 0
+push this 3
+push this 4
+call Move.getIndex 3
+return
+function Move.getIndex 0
+push argument 0
+pop pointer 0
+push argument 2
+push constant 8
+call Math.multiply 2
+push argument 1
+add
+return
