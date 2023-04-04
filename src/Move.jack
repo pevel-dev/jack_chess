@@ -19,17 +19,12 @@ class Move {
     method bool checkLegal() {
         var bool startPosValid;
         var bool endPosValid;
-        var int pieceId;
-        var int color;
-        var int figure;
-        var int endPosition;
-        var int dx;
-        var int dy;
+        var int pieceId, color, figure, endPosition, dx, dy;
 
         let startPosValid = (startX < 8) & (startY < 8) & (startX > -1) & (startY > -1);
         let endPosValid = (endX < 8) & (endY < 8) & (endX > -1) & (endY > -1);
 
-        if (~(startPosValid & endPosValid)){
+        if (~(startPosValid & endPosValid)) {
             return false;
         }
 
@@ -38,6 +33,7 @@ class Move {
         let figure = Help.mod(pieceId, 16);
 
         let endPosition = board.getPieceId(getEndIndex());
+
         if (~board.idFree(endPosition) & ((endPosition / 16) = color)){
             return false;
         }
@@ -53,18 +49,16 @@ class Move {
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
 
-            if (dx ~= dy){
+            if (~(dx = dy)) {
                 return false;
             }
-
-            
         }
 
         if (figure = 12){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
 
-            return (dx < 2) & (dy < 2)
+            return (dx < 2) & (dy < 2);
         } 
 
         return true;
@@ -79,7 +73,7 @@ class Move {
         return getIndex(endX, endY);
     }
 
-    method getIndex(int x, int y){
+    method int getIndex(int x, int y){
         return y * 8 + x;
     }
 }
