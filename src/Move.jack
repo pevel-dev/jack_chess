@@ -37,10 +37,17 @@ class Move {
         do Output.printInt((targetPiece / 16) = color);
         do Output.printInt(~board.idFree(targetPiece));
 
+        // VOID CANNOT MOVE
+        if (board.idFree(getStartIndex())) {
+            return false;
+        }
+
+        // Check that we do not eat the same color
         if (((targetPiece / 16) = color) & (~board.idFree(getEndIndex()))) {
             return false;
         }
 
+        // Check knight
         if (piece = 4){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
@@ -48,6 +55,7 @@ class Move {
             return ((dx = 2) & (dy = 1)) | ((dx = 1) & (dy = 2)); 
         }
 
+        // Check bishop
         if (piece = 6){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
@@ -57,6 +65,7 @@ class Move {
             }
         }
 
+        // Check king
         if (piece = 12){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
