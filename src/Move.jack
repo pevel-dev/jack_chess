@@ -73,6 +73,14 @@ class Move {
             return (dx < 2) & (dy < 2);
         } 
 
+        if (targetPiece = 12) {
+            // Black wins
+        }
+
+        if (targetPiece = 28) {
+            // White wins
+        }
+
         return true;
     }
 

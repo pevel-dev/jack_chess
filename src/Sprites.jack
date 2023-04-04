@@ -38,8 +38,6 @@ class Sprites {
     let WKB = Array.new(64);
     let BKW = Array.new(64);
     let BKB = Array.new(64);
-    let cursor = Array.new(64);
-    let cursor_black = Array.new(64);
 
     let WWW[0]  = 0;
     let WWW[1]  = 0;
