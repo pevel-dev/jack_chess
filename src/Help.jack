@@ -17,12 +17,15 @@ class Help {
     var int i;
     let input = Array.new(n);
     let i = 0;
-
     while(i < n){
       let input[i] = Keyboard.readChar();
       let i = i + 1;
+
+      if ((input[i - 1] - 129) = 0) {
+        let i = 0;
+      }
     }
 
-    return input;
+      return input;
   }
 }
