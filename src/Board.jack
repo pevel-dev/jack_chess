@@ -89,8 +89,25 @@ class Board{
         return;
     }
 
+    method int getPieceId(int position){
+        return grid[position] - getColor(position);
+    }
+
+    method bool idFree(int position){
+        return (grid[position] = 0) | (grid[position] = 1);
+    }
+
+    method int getColor(int position) {
+        var int x;
+        var int y;
+
+        let x = Help.mod(position, 8);
+        let y = position / 8;
+
+        return Help.abs((Help.mod(x, 2) = Help.mod(y, 2)) + 1);
+    }
+
     method void makeMove(Move move) { // UNSAFE
-        var int pieceId;
         var int startIndex;
         var int endIndex;
 
@@ -102,11 +119,10 @@ class Board{
         let startIndex = move.getStartIndex();
         let endIndex = move.getEndIndex();
 
-        let pieceId = grid[startIndex] - move.getStartColor();
-        let grid[endIndex] = pieceId + move.getEndColor();
-        let grid[startIndex] = move.getStartColor();
+        let grid[endIndex] = getPieceId(startIndex) + getColor(endIndex);
+        let grid[startIndex] = getColor(startIndex);
         do Output.moveCursor(20, 40);
-        do Output.printInt(move.getStartColor());
+        do Output.printInt(getColor(startIndex));
 
         do Memory.deAlloc(move);
         return;

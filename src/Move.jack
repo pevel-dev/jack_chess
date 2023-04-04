@@ -1,10 +1,12 @@
 class Move {
+    field Board board;
     field int startX;
     field int startY;
     field int endX;
     field int endY;
     
-    constructor Move new(Array moveDescription) {
+    constructor Move new(Board _board, Array moveDescription) {
+        let board = _board;
         let startX = moveDescription[0] - 65;
         let startY = (8 - (moveDescription[1] - 48));
         let endX = moveDescription[2] - 65;
@@ -12,33 +14,72 @@ class Move {
         do Memory.deAlloc(moveDescription);
 
         return this;
-      }
-
+    }
 
     method bool checkLegal() {
         var bool startPosValid;
         var bool endPosValid;
+        var int pieceId;
+        var int color;
+        var int figure;
+        var int endPosition;
+        var int dx;
+        var int dy;
 
-        let startPosValid = (startX < 9) & (startY < 9) & (startX > 0) & (startY > 0);
-        let endPosValid = (endX < 9) & (endY < 9) & (endX > 0) & (endY > 0);
+        let startPosValid = (startX < 8) & (startY < 8) & (startX > -1) & (startY > -1);
+        let endPosValid = (endX < 8) & (endY < 8) & (endX > -1) & (endY > -1);
 
-        return startPosValid & endPosValid;
-      }
+        if (~(startPosValid & endPosValid)){
+            return false;
+        }
+
+        let pieceId = board.getPieceId(getStartIndex());
+        let color = pieceId / 16;
+        let figure = Help.mod(pieceId, 16);
+
+        let endPosition = board.getPieceId(getEndIndex());
+        if (~board.idFree(endPosition) & ((endPosition / 16) = color)){
+            return false;
+        }
+
+        if (figure = 4){
+            let dx = Help.abs(startX - endX);
+            let dy = Help.abs(startY - endY);
+            
+            return ((dx = 2) & (dy = 1)) | ((dx = 1) & (dy = 2)); 
+        }
+
+        if (figure = 6){
+            let dx = Help.abs(startX - endX);
+            let dy = Help.abs(startY - endY);
+
+            if (dx ~= dy){
+                return false;
+            }
+
+            
+        }
+
+        if (figure = 12){
+            let dx = Help.abs(startX - endX);
+            let dy = Help.abs(startY - endY);
+
+            return (dx < 2) & (dy < 2)
+        } 
+
+        return true;
+    }
+
 
     method int getStartIndex() {
-        return startY * 8 + startX;
+        return getIndex(startX, startY);
     }
 
     method int getEndIndex() {
-        return endY * 8 + endX;
+        return getIndex(endX, endY);
     }
 
-    method int getStartColor() {
-        return Help.abs((Help.mod(startX, 2) = Help.mod(startY, 2)) + 1);
-    }
-
-    method int getEndColor() {
-        return Help.abs((Help.mod(endX, 2) = Help.mod(endY, 2)) + 1);
+    method getIndex(int x, int y){
+        return y * 8 + x;
     }
 }
-
