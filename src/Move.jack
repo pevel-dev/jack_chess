@@ -19,7 +19,7 @@ class Move {
     method bool checkLegal() {
         var bool startPosValid;
         var bool endPosValid;
-        var int pieceId, color, figure, endPosition, dx, dy;
+        var int pieceId, color, piece, targetPiece, dx, dy;
 
         let startPosValid = (startX < 8) & (startY < 8) & (startX > -1) & (startY > -1);
         let endPosValid = (endX < 8) & (endY < 8) & (endX > -1) & (endY > -1);
@@ -30,22 +30,25 @@ class Move {
 
         let pieceId = board.getPieceId(getStartIndex());
         let color = pieceId / 16;
-        let figure = Help.mod(pieceId, 16);
+        let piece = Help.mod(pieceId, 16);
 
-        let endPosition = board.getPieceId(getEndIndex());
+        let targetPiece = board.getPieceId(getEndIndex());
 
-        if (~board.idFree(endPosition) & ((endPosition / 16) = color)){
+        do Output.printInt((targetPiece / 16) = color);
+        do Output.printInt(~board.idFree(targetPiece));
+
+        if (((targetPiece / 16) = color) & (~board.idFree(getEndIndex()))) {
             return false;
         }
 
-        if (figure = 4){
+        if (piece = 4){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
             
             return ((dx = 2) & (dy = 1)) | ((dx = 1) & (dy = 2)); 
         }
 
-        if (figure = 6){
+        if (piece = 6){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
 
@@ -54,7 +57,7 @@ class Move {
             }
         }
 
-        if (figure = 12){
+        if (piece = 12){
             let dx = Help.abs(startX - endX);
             let dy = Help.abs(startY - endY);
 
