@@ -72,13 +72,15 @@ class Move {
 
             return (dx < 2) & (dy < 2);
         } 
-
+        
+        // Black wins
         if (targetPiece = 12) {
-            // Black wins
+            do Win.blackLivesMatter();
         }
-
+        
+        // White wins
         if (targetPiece = 28) {
-            // White wins
+            do Win.whitePower();
         }
 
         return true;
