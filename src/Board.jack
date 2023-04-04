@@ -84,7 +84,7 @@ class Board{
 
     method void DrawFigure(int id){
         var Array sprite;
-        let sprite = sprites.get_sprite(grid[id]);
+        let sprite = sprites.getSprite(grid[id]);
         do Draw.DrawSprite(sprite, Help.mod(id, 8) * 32, (id / 8) * 32);
         return;
     }
