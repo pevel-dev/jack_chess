@@ -5,6 +5,7 @@ class Help {
     }
     return number;
   }
+
   function int abs(int number) {
     if (number < 0) {
       let number = -number;
@@ -12,17 +13,35 @@ class Help {
     return number;
   }
 
+  function int norm(int number){
+    var int abs;
+    let abs = Help.abs(number);
+    if (abs = 0){
+      return 0;
+    }
+    return number / abs; 
+  }
+
   function Array GetInputChars(int n){
     var Array input;
     var int i;
+
     let input = Array.new(n);
     let i = 0;
+
+    do Output.moveCursor(20, 40);
     while(i < n){
       let input[i] = Keyboard.readChar();
       let i = i + 1;
 
-      if ((input[i - 1] - 129) = 0) {
-        let i = 0;
+      if (input[i - 1] = 129) {
+        if (i > 1){
+          let i = i - 2;
+        }
+        else{
+          do Output.moveCursor(20, 40);
+          let i = 0;
+        }
       }
     }
 

@@ -34,53 +34,98 @@ class Move {
 
         let targetPiece = board.getPieceId(getEndIndex());
 
-        do Output.printInt((targetPiece / 16) = color);
-        do Output.printInt(~board.idFree(targetPiece));
-
-        // VOID CANNOT MOVE
-        if (board.idFree(getStartIndex())) {
-            return false;
-        }
-
         // Check that we do not eat the same color
         if (((targetPiece / 16) = color) & (~board.idFree(getEndIndex()))) {
             return false;
         }
 
+        let dx = Help.abs(endX - startX);
+        let dy = Help.abs(endY - startY);
+
+        // Check pawn
+        if (piece = 2){
+            if ((dy = 0) | ((dx + dy) > 2)){
+                return false;
+            }
+            if ((dy = 2) & ~(startY = 1) & ~(startY = 6)){
+                return false;
+            }
+            if ((color = 0) & (startY < endY)){
+                return false;
+            }
+            if ((color = 1) & (startY > endY)){
+                return false;
+            }
+            if ((dx = 1) & board.idFree(getEndIndex())){
+                return false;
+            }
+            if ((dx = 0) & ~board.idFree(getEndIndex())){
+                return false;
+            }
+
+            return checkWay(dx, dy);
+        }
+
         // Check knight
         if (piece = 4){
-            let dx = Help.abs(startX - endX);
-            let dy = Help.abs(startY - endY);
-            
             return ((dx = 2) & (dy = 1)) | ((dx = 1) & (dy = 2)); 
         }
 
         // Check bishop
         if (piece = 6){
-            let dx = Help.abs(startX - endX);
-            let dy = Help.abs(startY - endY);
-
             if (~(dx = dy)) {
                 return false;
             }
+            
+            return checkWay(dx, dy);
+        }
+
+        // Check rook
+        if (piece = 8){
+            if ((dx > 0) & (dy > 0)) {
+                return false;
+            }
+            
+            return checkWay(dx, dy);
+        }
+
+        // Check queen
+        if (piece = 10){
+            if (~(dx = dy) & (dx > 0) & (dy > 0)) {
+                return false;
+            }
+            
+            return checkWay(dx, dy);
         }
 
         // Check king
         if (piece = 12){
-            let dx = Help.abs(startX - endX);
-            let dy = Help.abs(startY - endY);
-
             return (dx < 2) & (dy < 2);
         } 
+
+        return false;
+    }
+ 
+    method bool checkWay(int dx, int dy){
+        var int i;
+        var int stepX;
+        var int stepY;
+
+        let stepX = Help.norm(endX - startX);
+        let stepY = Help.norm(endY - startY);
         
-        // Black wins
-        if (targetPiece = 12) {
-            do Win.blackLivesMatter();
+        if (dx = dy){
+            let i = dx - 1;
+        }
+        else{
+            let i = dx + dy - 1;
         }
         
-        // White wins
-        if (targetPiece = 28) {
-            do Win.whitePower();
+        while (i > 0){
+            if (~board.idFree(getIndex(startX + (i * stepX), startY + (i * stepY)))){
+                return false;
+            }
+            let i = i - 1;
         }
 
         return true;

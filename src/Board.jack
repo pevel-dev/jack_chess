@@ -1,10 +1,12 @@
 class Board{
     field Array grid; // Хранятся id спрайтов
     field Sprites sprites;
+    field int lastColor;
 
     constructor Board new(){
         let grid = Array.new(64);
         let sprites = Sprites.new();
+        let lastColor = 1;
 
         let grid[0] = 24;
         let grid[1] = 21;
@@ -119,10 +121,26 @@ class Board{
         let startIndex = move.getStartIndex();
         let endIndex = move.getEndIndex();
 
+        if ((getPieceId(startIndex) / 16) = lastColor){
+            do Memory.deAlloc(move);
+            return;
+        }
+        else{
+            let lastColor = getPieceId(startIndex) / 16;
+        }
+
+        // Black wins
+        if (getPieceId(endIndex) = 12) {
+            do Win.blackLivesMatter();
+        }
+        
+        // White wins
+        if (getPieceId(endIndex) = 28) {
+            do Win.whitePower();
+        }
+
         let grid[endIndex] = getPieceId(startIndex) + getColor(endIndex);
         let grid[startIndex] = getColor(startIndex);
-        do Output.moveCursor(20, 40);
-        do Output.printInt(getColor(startIndex));
 
         do Memory.deAlloc(move);
         return;
