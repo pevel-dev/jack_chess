@@ -109,6 +109,11 @@ class Board{
         return Help.abs((Help.mod(x, 2) = Help.mod(y, 2)) + 1);
     }
 
+    method void setValue(int position, int id){
+        let grid[position] = id + getColor(position);
+        return;
+    }
+
     method void makeMove(Move move) { // UNSAFE
         var int startIndex;
         var int endIndex;

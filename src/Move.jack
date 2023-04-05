@@ -63,6 +63,10 @@ class Move {
                 return false;
             }
 
+            if ((endY = 0) | (endY = 7)){
+                do board.setValue(getStartIndex(), ((Keyboard.readChar() - 48) * 2) + (color * 16));
+            }
+
             return checkWay(dx, dy);
         }
 
@@ -120,7 +124,7 @@ class Move {
         else{
             let i = dx + dy - 1;
         }
-        
+
         while (i > 0){
             if (~board.idFree(getIndex(startX + (i * stepX), startY + (i * stepY)))){
                 return false;
